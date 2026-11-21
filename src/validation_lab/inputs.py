@@ -57,7 +57,8 @@ def normalize_hostname(value: str) -> str:
     if not isinstance(value, str):
         raise TypeError("hostname must be a string")
 
-    hostname = value.rstrip(".").lower()
+    hostname = value[:-1] if value.endswith(".") else value
+    hostname = hostname.lower()
     if not hostname or len(hostname) > 253:
         raise ValueError("hostname must contain 1–253 characters")
     labels = hostname.split(".")
